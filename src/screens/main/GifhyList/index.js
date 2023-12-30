@@ -14,7 +14,7 @@ const GifhyListScreen = (props) => {
     const styles = getStyles();
     const { getGifs } = useGifs();
     const [data, setData] = useState([]);
-    const [searchValue, setSearchValue] = useState("cheeseburgers"); // Default value for initial load
+    const [searchValue, setSearchValue] = useState("cheeseburgers"); 
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
