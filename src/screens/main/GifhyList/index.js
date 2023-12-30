@@ -14,7 +14,7 @@ const GifhyListScreen = (props) => {
     const styles = getStyles();
     const { getGifs } = useGifs();
     const [data, setData] = useState([]);
-    const [searchValue, setSearchValue] = useState("cheeseburgers"); 
+    const [searchValue, setSearchValue] = useState("cheeseburgers");
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -56,6 +56,7 @@ const GifhyListScreen = (props) => {
                     />
                 )}
             </View>
+            <Spacer height={SCREEN_HEIGHT * 0.1} />
         </LayoutContainer>
     );
 };

@@ -46,19 +46,19 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         paddingBottom: 20,
         marginTop: 20,
-        shadowColor: "#000",
+   
         shadowOffset: {
             width: 0,
-            height: 1,
+            height: 2,
         },
-        shadowOpacity: 0.20,
-        shadowRadius: 1.41,
-
-        elevation: 2,
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        
+        elevation: 5,
     },
 
     imgContainer: {
-        height: 200,
+        height: SCREEN_HEIGHT*0.2,
         backgroundColor: 'lightgrey',
         borderTopLeftRadius: 8,
         borderTopRightRadius: 8
