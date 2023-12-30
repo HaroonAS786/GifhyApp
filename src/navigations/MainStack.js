@@ -1,48 +1,14 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
 import { createStackNavigator } from "@react-navigation/stack";
-
+import GifhyListScreen from "../screens/main/GifhyList";
 import { ScreenOptions } from "../utilities/anim";
-import CustomText from "../components/CustomText";
 
-const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
-
-
-const HomeScreen = () => {
-    return <CustomText>Welcome Screen</CustomText>
-}
-
-// const BottomTabs = () => {
-//     return (
-//         <>
-//             <Tab.Navigator
-//                 tabBar={props => <CustomBottomTabBar {...props} />}
-//                 screenOptions={ScreenOptions}>
-//                 <Tab.Screen
-//                     name={"HomeScreen"}
-//                     component={HomeScreen} />
-//                 <Tab.Screen
-//                     name={"OffersScreen"}
-//                     component={OffersScreen} />
-//                 <Tab.Screen
-//                     name={"AddButton"}
-//                     component={View} />
-//                 <Tab.Screen
-//                     name={"CartScreen"}
-//                     component={CartScreen} />
-//                 <Tab.Screen
-//                     name={"AccountScreen"}
-//                     component={AccountScreen} />
-//             </Tab.Navigator>
-//         </>
-//     );
-// }
-
+const Stack = createStackNavigator()
 
 const MainStack = () => {
     return (
         <Stack.Navigator screenOptions={ScreenOptions} initialRouteName="HomeScreen">
-            <Stack.Screen name={'HomeScreen'} component={HomeScreen} />
+            <Stack.Screen name={'GifhyListScreen'} component={GifhyListScreen} />
         </Stack.Navigator>
     )
 }

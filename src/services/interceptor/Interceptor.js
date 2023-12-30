@@ -7,7 +7,7 @@ import { showSnackbar } from "../../utilities/anim";
 import { getUserAccessToken } from "../../utilities/storage";
 
 const apiRequest = axios.create({
-    baseURL: "https://wise-chimp-evident.ngrok-free.app/api",
+    baseURL: "https://api.giphy.com/v1",
     responseType: 'json',
     headers: { 'Content-Type': 'application/json' },
 });
@@ -51,23 +51,19 @@ const interceptingErrors = error => {
         error.response.status === 401 &&
         error.response.data.code === 401
     ) {
-
         store.dispatch(signOut())
         showSnackbar('Session Expired, Please Login Again.');
         return Promise.reject(error.response);
     }
 
     else if (error.response.status === 404) {
-        return Promise.reject(error.response.data.message);
+        return Promise.reject(error.message);
     }
     else if (error.response.status === 400) {
-        console.log("Error-------",error.response.data.message)
-        return Promise.reject(error.response.data.message);
-    
+        return Promise.reject(error.message);
     }
     else {
-        return Promise.reject(error.response.data.message);
-        // return Promise.reject(error.response.data.message);
+        return Promise.reject(error.message);
     }
 };
 

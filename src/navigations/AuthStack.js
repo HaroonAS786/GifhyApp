@@ -1,14 +1,10 @@
 import { createStackNavigator } from "@react-navigation/stack";
 
+import LoginScreen from "../screens/auth/login";
 import { ScreenOptions } from "../utilities/anim";
-import CustomText from "../components/CustomText";
 
 
 const Stack = createStackNavigator();
-
-const LoginScreen = () => {
-    return <CustomText>Login Screen</CustomText>
-}
 
 const AuthStack = () => {
     return (

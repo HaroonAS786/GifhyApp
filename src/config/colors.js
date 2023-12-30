@@ -1,5 +1,5 @@
 const mainPallet = {
-    primary: '#433B95',
+    primary: '#3498DB',
     error: '#E31C1C',
     success: '#1EB35A',
     warning: '#FFBF00',

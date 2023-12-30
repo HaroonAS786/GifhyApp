@@ -31,7 +31,7 @@ const AuthProvider = () => {
 
     return (
         <AuthContext.Provider value={authState}>
-            {authState?.isLogged ? <MainStack /> : <AuthStack />}
+            {!authState?.isLogged ? <MainStack /> : <AuthStack />}
         </AuthContext.Provider>
     );
 };
