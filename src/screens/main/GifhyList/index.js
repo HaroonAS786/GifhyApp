@@ -12,6 +12,7 @@ import GifhyCard from './components/GifhyCard'
 import { getStyles } from './style'
 
 const GifhyListScreen = (props) => {
+
     const styles = getStyles();
     const { getGifs } = useGifs();
     const [data, setData] = useState([]);
@@ -64,7 +65,6 @@ const GifhyListScreen = (props) => {
                     <CustomText color={themeColors.black} body semiBold>No GIF Yet</CustomText>
                 </View>
             }
-
         </View>
 
 
