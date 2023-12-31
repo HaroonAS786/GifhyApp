@@ -18,7 +18,7 @@ apiRequest.interceptors.request.use(
         if (userToken) {
             config.headers.Authorization = `Bearer ${userToken}`;
         }
-        console.log('Request Config:', config);
+        // console.log('Request Config:', config);
         return config;
     },
     error => {

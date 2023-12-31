@@ -6,11 +6,6 @@ import Spacer from './Spacer';
 
 const SearchBar = ({ onSearch, searchText }) => {
 
-
-    const handleSearch = (val) => {
-        onSearch(val);
-    };
-
     return (
         <View style={styles.container}>
             <SearchIcon />
@@ -20,7 +15,7 @@ const SearchBar = ({ onSearch, searchText }) => {
                 maxLength={50}
                 placeholder="Search..."
                 value={searchText}
-                onChangeText={handleSearch}
+                onChangeText={onSearch}
             />
         </View>
     )

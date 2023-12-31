@@ -1,63 +1,73 @@
-import { View, Text, FlatList, ActivityIndicator } from 'react-native'
+import _debounce from 'lodash/debounce'
 import React, { useEffect, useState } from 'react'
-import { getStyles } from './style'
-import LayoutContainer from '../../../components/LayoutContainer'
+import { ActivityIndicator, FlatList, View } from 'react-native'
+
+import CustomText from '../../../components/CustomText'
+import SearchBar from '../../../components/SearchBar'
+import Spacer from '../../../components/Spacer'
+import { themeColors } from '../../../config/colors'
+import { SCREEN_HEIGHT } from '../../../config/typography'
 import useGifs from '../../../hooks/useGifs'
 import GifhyCard from './components/GifhyCard'
-import SearchBar from '../../../components/SearchBar'
-import { themeColors } from '../../../config/colors'
-import Spacer from '../../../components/Spacer'
-import { SCREEN_HEIGHT } from '../../../config/typography'
+import { getStyles } from './style'
 
 const GifhyListScreen = (props) => {
-
     const styles = getStyles();
     const { getGifs } = useGifs();
     const [data, setData] = useState([]);
-    const [searchValue, setSearchValue] = useState("cheeseburgers");
+    const [searchValue, setSearchValue] = useState("");
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        const delay = (ms) => new Promise(res => setTimeout(res, ms));
-        const fetchData = async () => {
-            try {
-                setLoading(true);
-                const result = await getGifs(searchValue);
-                setData(result);
-            } catch (error) {
-                console.log(error, 'error--');
-            } finally {
-                setLoading(false);
-            }
-        };
-        const delayedSearch = async () => {
-            await delay(500);
-            fetchData();
-        };
-        delayedSearch();
+        fetchData(searchValue);
     }, [searchValue]);
 
+    const fetchData = async (value) => {
+        try {
+            const result = await getGifs(value);
+            setData(result);
+        } catch (error) {
+            console.log(error, 'error--');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const debouncedFetchData = _debounce(fetchData, 500);
+
+    const handleSearch = (value) => {
+        setSearchValue(value);
+        setLoading(true);
+        debouncedFetchData(value);
+    }
+
     return (
-        <LayoutContainer noHeight>
-            <View style={styles.container}>
-                <Spacer height={SCREEN_HEIGHT * 0.04} />
-                <SearchBar searchText={searchValue} onSearch={(val) => setSearchValue(val)} />
-                {loading ? (
-                    <ActivityIndicator size={35} color={themeColors.primary} />
-                ) : (
-                    <FlatList
-                        disableScroll={false}
-                        showsVerticalScrollIndicator={false}
-                        data={data.data}
-                        renderItem={({ item, index }) => (
-                            <GifhyCard key={index} item={item} index={index} />
-                        )}
-                        keyExtractor={(item, index) => index.toString()}
-                    />
-                )}
-            </View>
-            <Spacer height={SCREEN_HEIGHT * 0.1} />
-        </LayoutContainer>
+
+        <View style={styles.container}>
+            <Spacer height={SCREEN_HEIGHT * 0.09} />
+            <SearchBar searchText={searchValue} onSearch={(val) => handleSearch(val)} />
+
+            {data?.data?.length > 0 ? loading ? (
+                <ActivityIndicator size={35} color={themeColors.primary} />
+            ) : (
+                <FlatList
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{ paddingBottom: 220 }}
+                    data={data.data}
+                    renderItem={({ item, index }) => (
+                        <GifhyCard key={index} item={item} index={index} />
+                    )}
+                    keyExtractor={(item, index) => index.toString()}
+                />
+            ) :
+                <View style={styles.noGifCon}>
+                    <CustomText color={themeColors.black} body semiBold>No GIF Yet</CustomText>
+                </View>
+            }
+
+        </View>
+
+
     );
 };
 

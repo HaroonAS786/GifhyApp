@@ -3,7 +3,7 @@ import { END_POINTS } from "../../utilities/endPoints"
 import { apiRequest } from "../interceptor/Interceptor"
 
 export const getGifs = (searchValue) => {
-    return apiRequest.get(`${END_POINTS.GET_GIFS}?api_key=${Constants.API_KEY}&q=${searchValue}&limit=20`)
+    return apiRequest.get(`${END_POINTS.GET_GIFS}?api_key=${Constants.API_KEY}&q=${searchValue}&limit=10`)
 }
 
 const api = {
