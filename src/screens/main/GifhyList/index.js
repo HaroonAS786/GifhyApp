@@ -10,6 +10,7 @@ import { SCREEN_HEIGHT } from '../../../config/typography'
 import useGifs from '../../../hooks/useGifs'
 import GifhyCard from './components/GifhyCard'
 import { getStyles } from './style'
+import useLoading from '../../../hooks/useLoading'
 
 const GifhyListScreen = (props) => {
 
@@ -17,7 +18,7 @@ const GifhyListScreen = (props) => {
     const { getGifs } = useGifs();
     const [data, setData] = useState([]);
     const [searchValue, setSearchValue] = useState("");
-    const [loading, setLoading] = useState(false);
+    const { isLoading, startLoading, stopLoading } = useLoading()
 
     useEffect(() => {
         fetchData(searchValue);
@@ -30,7 +31,7 @@ const GifhyListScreen = (props) => {
         } catch (error) {
             console.log(error, 'error--');
         } finally {
-            setLoading(false);
+            stopLoading();
         }
     };
 
@@ -38,7 +39,7 @@ const GifhyListScreen = (props) => {
 
     const handleSearch = (value) => {
         setSearchValue(value);
-        setLoading(true);
+        startLoading();
         debouncedFetchData(value);
     }
 
@@ -48,7 +49,7 @@ const GifhyListScreen = (props) => {
             <Spacer height={SCREEN_HEIGHT * 0.09} />
             <SearchBar searchText={searchValue} onSearch={(val) => handleSearch(val)} />
 
-            {data?.data?.length > 0 ? loading ? (
+            {data?.data?.length > 0 ? isLoading ? (
                 <ActivityIndicator size={35} color={themeColors.primary} />
             ) : (
                 <FlatList
@@ -56,7 +57,11 @@ const GifhyListScreen = (props) => {
                     contentContainerStyle={{ paddingBottom: 220 }}
                     data={data.data}
                     renderItem={({ item, index }) => (
-                        <GifhyCard key={index} item={item} index={index} />
+                        <GifhyCard
+                            key={index}
+                            item={item}
+                            index={index}
+                        />
                     )}
                     keyExtractor={(item, index) => index.toString()}
                 />
